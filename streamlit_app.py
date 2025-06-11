@@ -6,24 +6,35 @@ import matplotlib.pyplot as plt
 @st.cache_data
 def load_data():
     dfs = []
-    for i in range(1, 102):  # 총 5개 파일이라면
+    for i in range(1, 102):
         url = f"https://raw.githubusercontent.com/Jueun07k/bike/main/split_data_utf8/bike_data_part_{i}.csv"
-        df = pd.read_csv(url, encoding='cp949', errors='ignore')  # 또는 cp949
-        dfs.append(df)
+        try:
+            df = pd.read_csv(url, encoding='cp949', errors='ignore')
+            dfs.append(df)
+        except Exception as e:
+            st.warning(f"⚠️ 파일 로드 실패: {url}\n오류: {e}")
+
+    if not dfs:
+        st.error("📛 CSV 파일을 하나도 불러오지 못했습니다.")
+        return pd.DataFrame(), pd.DataFrame()
 
     bike_df = pd.concat(dfs, ignore_index=True)
 
+    # 날짜 및 시간 처리
     bike_df['대여일시'] = pd.to_datetime(bike_df['대여일시'], errors='coerce')
     bike_df['날짜'] = bike_df['대여일시'].dt.date
     bike_df['시간대'] = bike_df['대여일시'].dt.hour
 
-    # 날씨 데이터도 확인
+    # 날씨 데이터 로드
     weather_url = "https://raw.githubusercontent.com/Jueun07k/bike/main/OBS_ASOS_DD_20250610143611.csv"
-    weather_df = pd.read_csv(weather_url, encoding='utf-8', errors='ignore')
-    weather_df['날짜'] = pd.to_datetime(weather_df['날짜']).dt.date
+    try:
+        weather_df = pd.read_csv(weather_url, encoding='utf-8', errors='ignore')
+        weather_df['날짜'] = pd.to_datetime(weather_df['날짜'], errors='coerce').dt.date
+    except Exception as e:
+        st.error(f"📛 날씨 데이터 로드 실패: {e}")
+        weather_df = pd.DataFrame()
 
     return bike_df, weather_df
-
 # 🔄 데이터 불러오기
 bike_df, weather_df = load_data()
 
