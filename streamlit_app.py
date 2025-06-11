@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 def load_data():
     dfs = []
     for i in range(1, 102):
-        url = f"https://raw.githubusercontent.com/Jueun07k/bike/main/split_data_utf8/bike_data_part_{i}.csv"
+        url = f"https://raw.githubusercontent.com/Jueun07k/bike/refs/heads/main/bike_data_part_i.csv"
         try:
             df = pd.read_csv(url, encoding='cp949', errors='ignore')
             dfs.append(df)
