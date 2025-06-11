@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # 📌 데이터 불러오기 함수
-@st.cache_data
+@st.cache_data(ttl=3600)  # 1시간마다 갱신
 def load_data():
     dfs = []
     for i in range(1, 102):
