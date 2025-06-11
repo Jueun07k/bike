@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 def load_data():
     dfs = []
     for i in range(1, 102):  # 총 5개 파일이라면
-        url = f"https://raw.githubusercontent.com/사용자명/저장소명/브랜치명/split_data_utf8/bike_data_part_{i}.csv"
+        url = f"https://raw.githubusercontent.com/Jueun07k/bike/main/split_data_utf8/bike_data_part_{i}.csv"
         df = pd.read_csv(url, encoding='utf-8', errors='ignore')  # 또는 cp949
         dfs.append(df)
 
@@ -18,7 +18,7 @@ def load_data():
     bike_df['시간대'] = bike_df['대여일시'].dt.hour
 
     # 날씨 데이터도 확인
-    weather_url = "https://raw.githubusercontent.com/사용자명/저장소명/브랜치명/OBS_ASOS_DD_20250610143611.csv"
+    weather_url = "https://raw.githubusercontent.com/Jueun07k/bike/main/OBS_ASOS_DD_20250610143611.csv"
     weather_df = pd.read_csv(weather_url, encoding='utf-8', errors='ignore')
     weather_df['날짜'] = pd.to_datetime(weather_df['날짜']).dt.date
 
