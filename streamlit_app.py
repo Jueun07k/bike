@@ -9,7 +9,7 @@ def load_data():
     for i in range(1, 102):
         url = f"https://raw.githubusercontent.com/Jueun07k/bike/refs/heads/main/bike_data_part_i.csv"
         try:
-            df = pd.read_csv(url, encoding='cp949')
+            df = pd.read_csv(url, encoding='utf-8')
             dfs.append(df)
         except Exception as e:
             st.warning(f"파일 로드 실패: {url} / 오류: {e}")
