@@ -9,7 +9,7 @@ def load_data():
     for i in range(1, 102):
         url = f"https://raw.githubusercontent.com/Jueun07k/bike/refs/heads/main/bike_data_part_i.csv"
         try:
-            df = pd.read_csv(url, encoding='cp949', errors='ignore')
+            df = pd.read_csv(url, encoding='cp949')
             dfs.append(df)
         except Exception as e:
             st.warning(f"파일 로드 실패: {url} / 오류: {e}")
@@ -26,7 +26,7 @@ def load_data():
 
     weather_url = "https://raw.githubusercontent.com/Jueun07k/bike/main/OBS_ASOS_DD_20250610143611.csv"
     try:
-        weather_df = pd.read_csv(weather_url, encoding='utf-8', errors='ignore')
+        weather_df = pd.read_csv(weather_url, encoding='utf-8')
         weather_df['날짜'] = pd.to_datetime(weather_df['날짜'], errors='coerce').dt.date
     except Exception as e:
         st.error(f"날씨 데이터 로드 실패: {e}")
