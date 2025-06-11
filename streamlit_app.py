@@ -8,7 +8,7 @@ def load_data():
     dfs = []
     for i in range(1, 102):  # 총 5개 파일이라면
         url = f"https://raw.githubusercontent.com/Jueun07k/bike/main/split_data_utf8/bike_data_part_{i}.csv"
-        df = pd.read_csv(url, encoding='utf-8', errors='ignore')  # 또는 cp949
+        df = pd.read_csv(url, encoding='cp949', errors='ignore')  # 또는 cp949
         dfs.append(df)
 
     bike_df = pd.concat(dfs, ignore_index=True)
